@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>TV Maze</title>
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+    integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+  <link href="style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <header>
+      <button id="home">Home</button>
+      <button id="tv">TV Shows</button>
+      <button id="movies">Movies</button>
+      <button id="kids">Kids</button>
+      <input type="text" id="searchInput" name="searchInput" placeholder="Search">
+      <button type="button" id="button"><i class="fa fa-search" onclick="searchShow(event)"></i></button>
+    </header>
+
+    <div id="mainDiv">
+      <div id="Comedy">
+        <h1>Comedy</h1>
+      </div>
+      <div id="Thriller">
+        <h1>Thriller</h1>
+      </div>
+      <div id="Romance">
+        <h1>Romance</h1>
+      </div>
+      <div id="Drama">
+        <h1>Drama</h1>
+      </div>
+      <div id="Children">
+        <h1>Children</h1>
+      </div>
+      <div id="Crime">
+        <h1>Crime</h1>
+      </div>
+    </div>
+
+    <div id="genreDiv">
+
+    </div>
+
+    <div id="searchDiv">
+
+    </div>
+
+    <div id="detailDiv">
+
+    </div>
+
+    <script src="./genreScript.js"></script>
+    <script src="./searchScript.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<title>Example</title>
+
+
+</head>
+<body>
+<form id="egform" name="egform" onsubmit="save(event)">
+
+<label>Subject</label>
+<div></div>
+<label>English</label>
+<input type="checkbox" name="subject" id="english" value="English"><br>
+<label>Chinese</label>
+<input type="checkbox" name="subject" id="chinese" value="Chinese"><br>
+<label>Malay</label>
+<input type="checkbox" name="subject" id="malay" value="Malay"><br>
+<label>Tamil</label>
+<input type="checkbox" name="subject" id="tamil" value="Tamil"><br>
+
+
+<div class="submitBtn">
+    <button type="submit" name="submit" id="submitBtn">Submit</button>
+</div>
+
+</form>
+</body>
+<script>
+    var subj = [];
+    function save(e) {
+        e.preventDefault();
+
+        subj = [];
+        console.log(document.egform.subject);
+        for (var i = 0; i <= document.egform.subject.length-1; i++) {
+            if (document.egform.subject[i].checked === true) {
+                subj.push(document.egform.subject[i].value)
+            }    
+        }
+        console.log(subj);
+    }
+
+    
+    const formData = new FormData(document.egform);
+        var inames = [];
+        var myformdata={};
+        for (let k of formData.keys()) { 
+            if (inames.includes(k)) {
+                inames.push(k);
+                myformdata[k]=formData.getAll(k)
+            }
+            console.log(myformdata[k]);
+        }  
+
+    
+    </script>
+</html>

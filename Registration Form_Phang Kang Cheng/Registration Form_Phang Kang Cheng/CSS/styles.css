@@ -1,0 +1,51 @@
+﻿h1 {
+    text-align: center;
+    padding: 4px;
+}
+
+body {
+    padding: 10px;
+    border: 3px solid black;
+    width: 600px;
+    position: sticky;
+}
+
+table {
+    margin: auto;
+    padding: 4px;
+}
+
+button {
+    align-items: center;
+}
+
+td {
+    padding: 4px;
+    margin: auto;
+    position: sticky;
+    width: 100px;
+}
+
+div {
+    color: red;
+    margin: auto;
+    position: sticky;
+}
+
+span {
+    text-align: center;
+    display: inline-block;
+    align-content: center;
+    position: sticky;
+    color: red;
+}
+
+.submitBtn {
+    text-align: center;
+}
+
+textarea {
+    width: 200px;
+    height: 150px;
+    position: sticky;
+}

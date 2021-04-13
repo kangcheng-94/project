@@ -1,0 +1,32 @@
+ul {
+    list-style-type: none;
+}
+
+h1 {
+    display: inline-block;
+}
+
+h4 {
+    display: inline-block;
+    text-align: center;
+}
+
+li {
+    border: 1px solid black;
+    padding: 5px;
+    width: 50%;
+    text-align: center;
+    display: inline-block;
+}
+
+input {
+    align-self: left;
+    size: 20px;
+}
+
+i {
+    margin: 5px;
+    align-items: left;
+    display: inline-block;
+    size: 20px;
+}

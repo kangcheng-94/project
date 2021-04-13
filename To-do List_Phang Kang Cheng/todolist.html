@@ -1,0 +1,155 @@
+<!DOCTYPE HTML>
+<HTML>
+<head>
+<meta charset="utf-8">
+<title>To-Do List</title>
+<link href="stylesheet.css" rel="stylesheet">
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body onload="loadhappened()">
+<h1>To-Do List</h1>
+<br>
+<h4>Add new task</h4>
+<br>
+<input type="text" id="task" placeholder="Here!">
+<button disabled id="button" onclick="addTask()">Add!</button>
+
+<ul id="tasklist"></ul>
+
+<script>
+//create an array of tasks 
+    var tasks = [];
+
+//create a function to get data from local storage in browser
+    function loadhappened(){
+        var data = window.localStorage.getItem("todolist"); //get data from local storage 
+        //console.log(data)
+        if(task !== null){
+            task = JSON.parse(data); //if data is not null, then assign it into tasks. This parses the data in the localStorage into JSON, and JSON will parse into tasks.
+            genList(tasks) //call method from function genList()
+        }
+    }
+
+//creating an object and storing them in a newly created array list//
+    function addTask() {
+        var taskinput = document.getElementById("task").value; //creating a variable to retrieve the value
+        var status = false; //creating a variable to see status (checkbox) of the task (completed or incomplete?)
+        tasks.push({"task":taskinput,"status":status}) //to push the values of taskinput and status, etc into the array "tasks" - created in line 18
+        window.localStorage.setItem("todolist", JSON.stringify(tasks)); //store data into local storage in web browser
+        document.getElementById("task").value = ""; //to empty the fields after onclick="addTask()" has been done (input has been submitted)
+        genList(tasks);
+    }
+
+//creating a list under ul - Unordered List and adding the objects(task inputs) to the list
+    function genList(alltasks) {
+        var ulref = document.getElementById("tasklist");
+        ulref.innerHTML = "";
+        for(let i = 0; i <= alltasks.length-1; i++){  // for loop to key in the inputs as individual records
+        var taskLi = document.createElement("li"); // to create listed items element (this is just the bullet point, no text!)
+        var statusBox = document.createElement("input"); // to create checkbox, first by creating element "input"
+            statusBox.type = "checkbox"; // to set the element "input" as a checkbox type
+            statusBox.checked = alltasks[i].status; // assigning checked for all inputs
+        statusBox.addEventListener("click", function(){
+            alltasks[i].status=!alltasks[i].status; //To update the status of the particular task. If it is true, change to false, and vice versa.
+        })
+        taskLi.appendChild(statusBox); //add statusBox along with its elements to the listed items 
+        var tasktextEl = document.createTextNode(alltasks[i].task); //creating a text for all task inputs
+        //console.log(tasktextEl);  
+        taskLi.appendChild(tasktextEl); // adding text to the listed item element
+        ulref.appendChild(taskLi); // adding listed items (which comprises of the bullet point + checkbox + text to the ul in HTML line 16)
+
+// Create delete function
+        var delBtn = document.createElement("i"); // create a delete button using new element in icon format ("i")
+        delBtn.classList.add("fas","fa-trash-alt"); //Create trash icon using "fas" and "fa-trash-alt". the icon is used by the css link in line 7
+
+        delBtn.addEventListener("click", function(){
+            var delConfirm = window.confirm("Are you sure you have completed the task?")
+            var delAlert = window.alert("Task deleted!")
+
+            if (delConfirm = true){
+                alltasks.splice(i,1); //splice is to add and remove objects in the array
+                window.localStorage.setItem("todolist", JSON.stringify(tasks));
+                genList(alltasks) //call the method again
+            }
+            if (delConfirm = true){
+                return delAlert;
+            }
+        })
+        taskLi.appendChild(delBtn);
+        ulref.appendChild(taskLi);
+        
+// Create edit function
+        var editBtn = document.createElement("i");
+        editBtn.classList.add("fas", "fa-edit");
+
+        editBtn.addEventListener("click", function(){
+            //alert(i);
+            var updateList = window.prompt("Type here to edit task")
+            
+            if (updateList != null){
+                alltasks[i].task = updateList;
+                window.localStorage.setItem("todolist", JSON.stringify(tasks));
+                genList(alltasks);
+            }
+        })
+        taskLi.appendChild(editBtn);
+        ulref.appendChild(taskLi);
+
+// Create an up arrow button to priotise task/bring it up the list      
+        var upBtn = document.createElement("i");
+        upBtn.classList.add("fas", "fa-angle-double-up");
+
+        upBtn.addEventListener("click", function(){
+            if (i !== 0){
+                var temp = alltasks[i];
+                alltasks[i] = alltasks[i - 1];
+                alltasks[i - 1] = temp;
+                window.localStorage.setItem("todolist", JSON.stringify(tasks));
+                genList(alltasks)
+
+                console.log(upBtn);
+            }
+        })
+        taskLi.appendChild(upBtn);
+        ulref.appendChild(taskLi);
+
+// Create down arrow button to priotise task/bring it down the list
+        var downBtn = document.createElement("i");
+        downBtn.classList.add("fas", "fa-angle-double-down");
+
+        downBtn.addEventListener("click", function(){
+            if (i !== alltasks.length - 1){
+                var temp = alltasks[i];
+                alltasks[i] = alltasks[i + 1];
+                alltasks[i + 1] = temp;
+                window.localStorage.setItem("todolist", JSON.stringify(tasks));
+                genList(alltasks)
+            }
+        })
+        taskLi.appendChild(downBtn);
+        ulref.appendChild(taskLi);
+        }
+    }
+
+// EventListener to block submit when task input value is "" or null
+    var isInputValid = false;
+    function taskEntered(e) {
+        if(document.getElementById("task").value === "" || document.getElementById("task").value === null) {
+            isInputValid = false;
+            document.getElementById("button").disabled = true;
+        }   
+        else {
+            isInputValid = true;
+            document.getElementById("button").disabled = false;
+        }
+    }
+    document.getElementById("task").addEventListener("keyup", taskEntered)
+    document.getElementById("task").addEventListener("keydown", taskEntered)
+    document.getElementById("task").addEventListener("blur", taskEntered)
+    document.getElementById("task").addEventListener("focus", taskEntered)
+    document.getElementById("button").addEventListener("click",taskEntered)
+
+    </script>
+</body>
+</HTML>
